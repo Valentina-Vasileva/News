@@ -38,7 +38,8 @@ class NewsTest extends TestCase
     {
         $news = News::factory()->create();
 
-        $response = $this->get(route('news.show', ['news' => $news]));
+        $response = $this->actingAs($this->user)
+            ->get(route('news.show', ['news' => $news]));
         $response->assertOk();
     }
 
@@ -49,8 +50,7 @@ class NewsTest extends TestCase
      */
     public function testStore()
     {
-        $data = News::factory()
-            ->make();
+        $data = News::factory()->make()->toArray();
 
         $response = $this->actingAs($this->admin)
             ->post(route('news.store', $data));
@@ -74,7 +74,6 @@ class NewsTest extends TestCase
         $response = $this->actingAs($this->admin)
             ->patch(route('news.update', ['news' => $news]), $data);
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect();
 
         $this->assertDatabaseHas('news', $data);
     }
