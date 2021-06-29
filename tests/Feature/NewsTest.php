@@ -38,7 +38,7 @@ class NewsTest extends TestCase
     {
         $news = News::factory()->create();
 
-        $response = $this->get(route('tasks.show', ['news' => $news]));
+        $response = $this->get(route('news.show', ['news' => $news]));
         $response->assertOk();
     }
 
