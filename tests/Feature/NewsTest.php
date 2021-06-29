@@ -50,8 +50,7 @@ class NewsTest extends TestCase
     public function testStore()
     {
         $data = News::factory()
-            ->make()
-            ->only(['title', 'body']);
+            ->make();
 
         $response = $this->actingAs($this->admin)
             ->post(route('news.store', $data));
