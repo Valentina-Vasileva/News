@@ -15,7 +15,7 @@ class NewsTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->admin = User::factory()->create();
+        $this->admin = User::factory()->admin()->create();
     }
     /**
      * Test of news index.
