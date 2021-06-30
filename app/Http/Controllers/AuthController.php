@@ -10,6 +10,10 @@ use App\Http\Requests\StoreAuthRequest;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only(['logout', 'user']);
+    }
     /**
      * User registration.
      *
