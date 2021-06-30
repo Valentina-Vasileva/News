@@ -14,6 +14,7 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api')->only(['logout', 'user']);
     }
+
     /**
      * User registration.
      *
@@ -22,7 +23,6 @@ class AuthController extends Controller
      */
     public function signup(StoreAuthRequest $request)
     {
-
         $request->validated();
 
         $user = new User([
