@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory()->create();
         \App\Models\User::factory()->admin()->create();
-        \App\Models\News::factory()->create();
+        \App\Models\News::factory()->count(2)->create();
     }
 }
