@@ -19,7 +19,7 @@ class NewsResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'updated_at' => $this->updated_at,
-            'status' => $this->status,
+            'status' => $this->when(Auth::user()->admin, $this->status),
         ];
     }
 }
