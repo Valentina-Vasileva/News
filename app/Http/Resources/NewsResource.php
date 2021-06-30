@@ -17,7 +17,7 @@ class NewsResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'body' => $this->body,
+            'body' => $this->when($request->routeIs('news.show'), $this->body),
             'updated_at' => $this->updated_at,
             'status' => $this->when(Auth::user()->admin, $this->status),
         ];
