@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,15 @@ use App\Http\Controllers\NewsController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signup']);
+
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+Route::get('user', [AuthController::class, 'user'])->middleware('auth:api');
 
 Route::resource('news', NewsController::class)
     ->only(['index', 'show', 'store', 'update']);
