@@ -13,6 +13,7 @@ class NewsController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->middleware('admin')->only(['store', 'update']);
     }
     /**
      * Display a listing of the resource.

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\News;
+use Laravel\Passport\Passport;
 
 class NewsTest extends TestCase
 {
@@ -24,8 +25,8 @@ class NewsTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->actingAs($this->user)
-            ->get(route('news.index'));
+        Passport::actingAs($this->user);
+        $response = $this->get(route('news.index'));
         $response->assertOk();
     }
 
@@ -38,8 +39,8 @@ class NewsTest extends TestCase
     {
         $news = News::factory()->create();
 
-        $response = $this->actingAs($this->user)
-            ->get(route('news.show', ['news' => $news]));
+        Passport::actingAs($this->user);
+        $response = $this->get(route('news.show', ['news' => $news]));
         $response->assertOk();
     }
 
@@ -52,8 +53,8 @@ class NewsTest extends TestCase
     {
         $data = News::factory()->make()->toArray();
 
-        $response = $this->actingAs($this->admin)
-            ->post(route('news.store', $data));
+        Passport::actingAs($this->admin);
+        $response = $this->post(route('news.store', $data));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
@@ -71,8 +72,8 @@ class NewsTest extends TestCase
         $news = News::factory()->create();
         $data = ['status' => 'published'];
 
-        $response = $this->actingAs($this->admin)
-            ->patch(route('news.update', ['news' => $news]), $data);
+        Passport::actingAs($this->admin);
+        $response = $this->patch(route('news.update', ['news' => $news]), $data);
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('news', $data);
