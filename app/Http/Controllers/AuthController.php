@@ -10,6 +10,12 @@ use App\Http\Requests\StoreAuthRequest;
 
 class AuthController extends Controller
 {
+    /**
+     * User registration.
+     *
+     * @param  App\Http\Requests\StoreAuthRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function signup(StoreAuthRequest $request)
     {
 
@@ -26,6 +32,12 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully created user!'], 201);
     }
 
+    /**
+     * User login.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
@@ -50,12 +62,24 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * User logout.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /**
+     * Show logged user.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function user(Request $request)
     {
         return response()->json($request->user());
