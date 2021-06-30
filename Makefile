@@ -8,6 +8,7 @@ setup:
 	php artisan key:gen --ansi
 	touch database/database.sqlite
 	php artisan migrate
+	php artisan passport:install
 
 migrate:
 	php artisan migrate
